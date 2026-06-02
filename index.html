@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mono & Proyectil — Experimento de Física</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/scene.css" />
+  <link rel="stylesheet" href="css/controls.css" />
+</head>
+<body>
+
+  <!-- ── LANDING ──────────────────────────────────────────────────────── -->
+  <section id="landing" class="landing">
+    <div class="landing-bg">
+      <div class="paper-texture"></div>
+      <div class="grid-lines"></div>
+      <!-- SVG decorativo: trayectoria parabólica esquemática -->
+      <svg class="deco-svg" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="deco-arc" d="M80 340 Q340 60 700 240" stroke-width="1.5" stroke-dasharray="8 6" fill="none"/>
+        <line class="deco-line" x1="80" y1="340" x2="700" y2="340" stroke-width="1" stroke-dasharray="4 4"/>
+        <line class="deco-line" x1="700" y1="340" x2="700" y2="80" stroke-width="1" stroke-dasharray="4 4"/>
+        <circle class="deco-dot" cx="80" cy="340" r="5"/>
+        <circle class="deco-dot" cx="700" cy="240" r="5" class="deco-dot-accent"/>
+        <text class="deco-label" x="88" y="356">Cañón</text>
+        <text class="deco-label" x="708" y="236">Mono</text>
+        <text class="deco-label" x="380" y="130">y = h₁ + v₀sinθ·t − ½gt²</text>
+        <line class="deco-theta" x1="80" y1="340" x2="160" y2="316" stroke-width="1.5"/>
+        <text class="deco-label-sm" x="130" y="346">θ</text>
+      </svg>
+    </div>
+
+    <div class="landing-content">
+      <div class="landing-eyebrow" id="l-eyebrow">Experimento de Física Clásica</div>
+      <h1 class="landing-title" id="l-title">
+        <span class="title-line" id="lt1">El Mono</span>
+        <span class="title-line accent-line" id="lt2">&amp; el Proyectil</span>
+      </h1>
+      <p class="landing-desc" id="l-desc">
+        Un experimento donde la gravedad es justa: si el disparo apunta al mono en reposo,<br>
+        la bala y el mono caen con la misma aceleración y se encuentran siempre.
+      </p>
+      <div class="landing-formula" id="l-formula">
+        <span class="formula-line">x<sub>p</sub>(t) = v₀cosθ · t</span>
+        <span class="formula-sep">—</span>
+        <span class="formula-line">y<sub>p</sub>(t) = h₁ + v₀sinθ · t − ½gt²</span>
+        <span class="formula-sep">—</span>
+        <span class="formula-line">y<sub>m</sub>(t) = h₂ − ½gt²</span>
+      </div>
+      <button class="landing-cta" id="l-cta">
+        <span class="cta-text">Iniciar experimento</span>
+        <svg class="cta-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="landing-credits">UAM · Física II · 2026</div>
+  </section>
+
+  <!-- ── APP ──────────────────────────────────────────────────────────── -->
+  <div id="app" class="app hidden">
+
+    <!-- Header -->
+    <header class="site-header">
+      <button class="back-btn" id="btn-back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="logo">
+        <span class="logo-mark">◉</span>
+        <span class="logo-text">Mono &amp; Proyectil</span>
+      </div>
+
+      <nav class="mode-nav" id="mode-nav">
+        <button class="mode-btn active" data-mode="realistic">
+          <span class="btn-pip"></span>REALISTA
+        </button>
+        <button class="mode-btn" data-mode="physics">
+          <span class="btn-pip"></span>PIZARRÓN
+        </button>
+      </nav>
+
+      <!-- Cámara selector (solo realista) -->
+      <div class="cam-nav" id="cam-nav">
+        <button class="cam-btn active" data-cam="orbit" title="Órbita libre">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><ellipse cx="7" cy="7" rx="5" ry="2.5" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 2"/></svg>
+        </button>
+        <button class="cam-btn" data-cam="side" title="Lateral (2ª persona)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.2"/><line x1="7" y1="2" x2="7" y2="12" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/></svg>
+        </button>
+        <button class="cam-btn" data-cam="cannon" title="Desde el cañón (1ª persona)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2" fill="currentColor"/><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><line x1="7" y1="2" x2="7" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="7" y1="9" x2="7" y2="12" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="7" x2="5" y2="7" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="7" x2="12" y2="7" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button class="cam-btn" data-cam="bullet" title="POV bala (3ª persona)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="cam-btn" data-cam="monkey" title="POV mono (ser el mono)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M3 12c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="header-right">
+        <div class="theta-display" id="f-theta">θ = 0.00°</div>
+        <button class="icon-btn" id="btn-mute" title="Audio">
+          <svg id="ico-sound" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5h3l4-3v11l-4-3H2V5.5z" stroke="currentColor" stroke-width="1.2"/><path d="M11 5a4 4 0 010 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Stage -->
+    <main class="stage" id="stage">
+
+      <!-- Selector de escenario — fuera de .scene para no heredar opacity:0 -->
+      <div class="scenario-panel" id="scenario-nav"></div>
+
+      <section class="scene realistic-scene active" id="scene-realistic">
+        <canvas id="realistic-canvas"></canvas>
+
+        <!-- HUD flotante -->
+        <div class="hud-panel" id="hud-panel">
+          <div class="hud-row"><span class="hud-key">t</span><span class="hud-val" id="hud-t">0.000 s</span></div>
+          <div class="hud-row"><span class="hud-key">Vy proj</span><span class="hud-val" id="hud-vy-proj">0.000 m/s</span></div>
+          <div class="hud-row"><span class="hud-key">Vy mono</span><span class="hud-val" id="hud-vy-mono">0.000 m/s</span></div>
+        </div>
+
+        <!-- Impact banner -->
+        <div class="impact-banner hidden" id="impact-banner">
+          <span class="impact-icon">◎</span>
+          <span class="impact-text">IMPACTO</span>
+          <span class="impact-icon">◎</span>
+        </div>
+
+        <!-- Cam label -->
+        <div class="cam-label" id="cam-label">VISTA ÓRBITA</div>
+
+      </section>
+
+      <section class="scene physics-scene" id="scene-physics">
+        <canvas id="physics-canvas"></canvas>
+      </section>
+    </main>
+
+    <!-- Controls drawer -->
+    <footer class="controls-bar" id="controls-bar">
+      <div class="params-grid">
+        <label class="param-row">
+          <span class="param-sym">V₀</span>
+          <input type="range" id="slider-v0" min="5" max="30" value="14" step="0.5" />
+          <span class="param-num" id="val-v0">14.0</span>
+          <span class="param-unit">m/s</span>
+        </label>
+        <label class="param-row">
+          <span class="param-sym">h₁</span>
+          <input type="range" id="slider-h1" min="0.2" max="3" value="1" step="0.1" />
+          <span class="param-num" id="val-h1">1.0</span>
+          <span class="param-unit">m</span>
+        </label>
+        <label class="param-row">
+          <span class="param-sym">h₂</span>
+          <input type="range" id="slider-h2" min="1" max="5" value="3" step="0.1" />
+          <span class="param-num" id="val-h2">3.0</span>
+          <span class="param-unit">m</span>
+        </label>
+        <label class="param-row">
+          <span class="param-sym">d</span>
+          <input type="range" id="slider-d" min="3" max="15" value="8" step="0.5" />
+          <span class="param-num" id="val-d">8.0</span>
+          <span class="param-unit">m</span>
+        </label>
+        <label class="param-row">
+          <span class="param-sym">ℓ</span>
+          <input type="range" id="slider-rope" min="0.3" max="2.5" value="1.2" step="0.05" />
+          <span class="param-num" id="val-rope">1.20</span>
+          <span class="param-unit">m</span>
+        </label>
+      </div>
+
+      <div class="actions-col">
+        <button class="btn-fire" id="btn-fire">DISPARAR</button>
+        <button class="btn-reset" id="btn-reset">RESET</button>
+      </div>
+
+      <div class="results-col" id="result-group">
+        <div class="result-row"><span class="res-key">θ</span><span class="res-val" id="res-theta">—</span><span class="res-unit">°</span></div>
+        <div class="result-row"><span class="res-key">t<sub>imp</sub></span><span class="res-val" id="res-timp">—</span><span class="res-unit">s</span></div>
+        <div class="result-row"><span class="res-key">err</span><span class="res-val" id="res-err">—</span><span class="res-unit">%</span></div>
+      </div>
+    </footer>
+
+  </div><!-- /app -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

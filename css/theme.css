@@ -1,0 +1,56 @@
+/* ── BOCETO EN PAPEL — paleta monocromática ─────────────────────────────── */
+:root {
+  /* papel */
+  --paper:       #f4f0e8;
+  --paper-dark:  #ede8dc;
+  --paper-warm:  #e8e2d4;
+
+  /* tinta */
+  --ink-0:       #1a1612;   /* negro pluma */
+  --ink-1:       #2e2920;   /* grafito oscuro */
+  --ink-2:       #4a4035;   /* grafito medio */
+  --ink-3:       #7a6e60;   /* grafito claro */
+  --ink-4:       #b0a090;   /* grafito muy claro */
+  --ink-5:       #d4cdc0;   /* grafito fantasma */
+
+  /* acento único: tinta azul de bolígrafo escolar */
+  --blue:        #1a3a6e;
+  --blue-mid:    #2a5298;
+  --blue-light:  #4a72b8;
+
+  /* chalk (pizarrón) */
+  --chalk-w:     #f0ece4;
+  --chalk-y:     #e8d48a;
+  --chalk-b:     #7ab8d4;
+  --chalk-r:     #d47a6a;
+  --board:       #0e1a14;
+  --board-mid:   #162318;
+
+  /* tipografía */
+  --font-serif:  'Playfair Display', serif;
+  --font-bask:   'Libre Baskerville', serif;
+  --font-mono:   'Space Mono', monospace;
+  --font-hand:   'Caveat', cursive;   /* para el pizarrón */
+
+  /* layout */
+  --header-h:    52px;
+  --footer-h:    72px;
+
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink-0);
+  font-family: var(--font-bask);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--blue-light); color: var(--paper); }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--paper-warm); }
+::-webkit-scrollbar-thumb { background: var(--ink-4); border-radius: 2px; }
