@@ -166,4 +166,4 @@ Abrir `http://localhost:8080` — requiere servidor HTTP por ES modules.
 
 ---
 
-*Universidad Americana (UAM) · Ingeniería de Sistemas · Física II · 2026*
+*Universidad Americana (UAM) · Ingeniería de Sistemas · Física Aplicada · 2026*
