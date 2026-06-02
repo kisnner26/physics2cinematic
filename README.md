@@ -31,25 +31,61 @@ x_m(t) = d − ℓ               y_m(t) = h₂ − ½gt²
 
 ---
 
-## Capturas
+## Vista general
 
-### Escenarios
+### Bienvenida
 
-| Laboratorio | Desierto |
-|:-----------:|:--------:|
-| [![Laboratorio](https://drive.google.com/uc?export=view&id=1vE-uRp3d01rLyzg6rJIm-1cIN8luVwsN)](https://drive.google.com/file/d/1vE-uRp3d01rLyzg6rJIm-1cIN8luVwsN/view) | [![Desierto](https://drive.google.com/uc?export=view&id=1R9fZyvhHamaekpOz54KEv5CQ5QYNlOcZ)](https://drive.google.com/file/d/1R9fZyvhHamaekpOz54KEv5CQ5QYNlOcZ/view) |
+<p align="center">
+  <img src="https://drive.google.com/uc?export=view&id=1QOV32o3atGY2Ua56rSoShIw2weFbsfuw" alt="Bienvenida" width="100%"/>
+</p>
 
-| Noche | Bosque |
-|:-----:|:------:|
-| [![Noche](https://drive.google.com/uc?export=view&id=1gQmXM9-5yaSznSI7-wCNuj4el7RpmLkJ)](https://drive.google.com/file/d/1gQmXM9-5yaSznSI7-wCNuj4el7RpmLkJ/view) | [![Bosque](https://drive.google.com/uc?export=view&id=1va-luct79xwM_YuG8ShII21_Kw0VWlsT)](https://drive.google.com/file/d/1va-luct79xwM_YuG8ShII21_Kw0VWlsT/view) |
+### Proyectil impactando al mono
 
-### Modo Pizarrón
+<p align="center">
+  <img src="https://s5.ezgif.com/tmp/ezgif-58d57733b22b5b00.gif" alt="Impacto" width="100%"/>
+</p>
 
-[![Modo Pizarrón](https://drive.google.com/uc?export=view&id=18QxESdEXR_sgoKFvWVhPvdh6cozxHEVu)](https://drive.google.com/file/d/18QxESdEXR_sgoKFvWVhPvdh6cozxHEVu/view)
+---
 
-### Perspectivas de cámara
+## Escenarios
 
-[![Perspectivas](https://drive.google.com/uc?export=view&id=1vu4PrsHX59ixag7xJ6un6ycyGiC5lM_f)](https://drive.google.com/file/d/1vu4PrsHX59ixag7xJ6un6ycyGiC5lM_f/view)
+<table>
+  <tr>
+    <td align="center"><b>Laboratorio</b></td>
+    <td align="center"><b>Desierto</b></td>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=19nYqR7nsUA73LKxI5zgM7K2lO7mbVOhL" width="100%"/></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1U5-YgU5_2AI9f4BuOAgbCYBo2fMb5mpN" width="100%"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Noche</b></td>
+    <td align="center"><b>Bosque</b></td>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1x-t1oarTP8HdqfSSTJG-aaJQi1Ug886b" width="100%"/></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=13XrV0TlSsIlB5DTTxXKJy1A7y_5mTp0Q" width="100%"/></td>
+  </tr>
+</table>
+
+---
+
+## Modo Pizarrón
+
+<p align="center">
+  <img src="https://drive.google.com/uc?export=view&id=1ZOHHvH5S9-pKm4SbmJIL_ILEWMRyG4Fo" alt="Modo Pizarrón" width="100%"/>
+</p>
+
+---
+
+## Perspectivas de cámara
+
+<table>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1ebul6oPBOzLNP6pGDdGB8iiQMdKHz-BC" width="100%"/></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1UGezrMfEaeoa9cp0Qx8wYsOBx48gssvy" width="100%"/></td>
+  </tr>
+</table>
 
 ---
 
