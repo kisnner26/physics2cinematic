@@ -1,0 +1,81 @@
+/* ── HUD FLOTANTE (modo realista) ────────────────────────────────────────── */
+.hud-panel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(244,240,232,0.88);
+  border: 1px solid rgba(26,20,18,0.12);
+  padding: 4px 10px;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+}
+
+.hud-key {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--blue-mid);
+  min-width: 44px;
+}
+
+.hud-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-0);
+}
+
+/* ── IMPACT BANNER ───────────────────────────────────────────────────────── */
+.impact-banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--ink-0);
+  color: var(--paper);
+  padding: 12px 32px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 4px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.impact-banner.hidden { display: none; }
+.impact-icon { color: var(--blue-light); font-size: 16px; }
+
+/* Cam label */
+.cam-label {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(26,20,18,0.35);
+  pointer-events: none;
+  background: rgba(244,240,232,0.7);
+  padding: 4px 8px;
+  border-radius: 1px;
+}
+
+/* Ajuste de posición: cam-label va abajo-izquierda para no chocar con scenario panel */
+.cam-label {
+  bottom: 16px !important;
+  right: auto !important;
+  left: 16px !important;
+}
