@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://physicsproyectil.netlify.app"><strong>🔴 PRUÉBALO DESDE AQUÍ — physicsproyectil.netlify.app</strong></a>
+  <a href="https://physicsproyectil.netlify.app"><strong>🔴 PRUÉBALO DESDE AQUÍ — https://physicsmonkeyproject.netlify.app</strong></a>
 </p>
 
 <p align="center">
