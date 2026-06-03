@@ -1,0 +1,211 @@
+/* ── MODO VISUAL — Overlay cinemático ──────────────────────────────────── */
+
+/* Overlay fullscreen */
+#visual-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#visual-overlay.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+/* Letterbox — barras negras cine 2.35:1 */
+#visual-overlay::before,
+#visual-overlay::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 11vh;
+  background: #000;
+  z-index: 10;
+  transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#visual-overlay::before { top: 0; }
+#visual-overlay::after  { bottom: 0; }
+
+/* Vignette */
+#visual-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+    transparent 40%,
+    rgba(0,0,0,0.85) 100%
+  );
+  pointer-events: none;
+  z-index: 11;
+  opacity: 0.5;
+  transition: opacity 0.4s;
+}
+
+/* Flash de corte de toma */
+#visual-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 0.25s ease;
+}
+
+/* Subtítulo cinemático */
+.visual-subtitle {
+  position: absolute;
+  bottom: 16vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(11px, 1.4vw, 15px);
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.0);
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 30;
+  pointer-events: none;
+  transition: color 0.35s ease, opacity 0.35s ease;
+  opacity: 0;
+  white-space: nowrap;
+}
+.visual-subtitle.visible {
+  opacity: 1;
+  color: rgba(255,255,255,0.88);
+}
+.visual-subtitle--countdown {
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 8px;
+  color: rgba(255,255,255,0.92);
+  bottom: 50%;
+  transform: translateX(-50%) translateY(50%);
+  text-shadow: 0 0 40px rgba(100,160,255,0.6);
+}
+.visual-subtitle--fire {
+  font-size: clamp(22px, 4vw, 42px);
+  letter-spacing: 10px;
+  color: rgba(255, 210, 80, 0.95);
+  bottom: 50%;
+  transform: translateX(-50%) translateY(50%);
+  text-shadow: 0 0 60px rgba(255,180,40,0.8);
+}
+.visual-subtitle--impact {
+  font-size: clamp(14px, 2vw, 20px);
+  letter-spacing: 6px;
+  color: rgba(200,120,80,0.9);
+  text-shadow: 0 0 30px rgba(255,100,40,0.6);
+  bottom: 14vh;
+}
+.visual-subtitle--end {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 12px;
+  color: rgba(255,255,255,0.7);
+  bottom: 50%;
+  transform: translateX(-50%) translateY(50%);
+}
+
+/* Etiqueta de toma (discreto, esquina superior) */
+#visual-take-label {
+  position: absolute;
+  top: 13vh;
+  left: 3vw;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Indicador slow-motion */
+#visual-slowmo {
+  position: absolute;
+  top: 13vh;
+  right: 3vw;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(100,200,255,0.7);
+  text-transform: uppercase;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Botón cerrar */
+#visual-close {
+  position: absolute;
+  top: 13vh;
+  right: 3vw;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 2px;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 40;
+  transition: border-color 0.2s, color 0.2s;
+}
+#visual-close:hover {
+  border-color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.9);
+}
+
+/* Botón VISUALES en el header */
+.btn-visual {
+  padding: 7px 16px;
+  background: transparent;
+  color: rgba(100,180,255,0.85);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  border: 1px solid rgba(100,180,255,0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s, background 0.18s, box-shadow 0.18s;
+  white-space: nowrap;
+  position: relative;
+}
+.btn-visual::before {
+  content: '▶';
+  margin-right: 5px;
+  font-size: 8px;
+  opacity: 0.7;
+}
+.btn-visual:hover {
+  border-color: rgba(100,180,255,0.8);
+  color: rgba(140,210,255,1);
+  background: rgba(100,180,255,0.07);
+  box-shadow: 0 0 14px rgba(100,180,255,0.2);
+}
+
+/* Cuando el modo visual está activo, el canvas ocupa todo */
+.visual-running #scene-realistic {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+.visual-running #scene-realistic canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.visual-running .controls-bar,
+.visual-running .site-header,
+.visual-running .scenario-panel,
+.visual-running .hud-panel,
+.visual-running .cam-label,
+.visual-running .impact-banner {
+  display: none !important;
+}

@@ -2,19 +2,16 @@
 
 export const G = 9.81; // m/s²
 
-// Coeficiente de arrastre (puede ser 0 para modo ideal)
-// Esfera: Cd=0.47, área=π*r², rho_air=1.225 kg/m³, m=0.03 kg
-// Factor de arrastre = 0.5 * Cd * rho * A / m
-// r = 0.045 m (bala real), A = π*0.045² = 0.00636 m²
-// k = 0.5 * 0.47 * 1.225 * 0.00636 / 0.03 = 0.0610 m⁻¹
-// A v0=14: drag_a = k * 14² = 11.9 m/s² → notable pero no dominante
-// Usamos k pequeño para que el experimento siga siendo didáctico
-export const DRAG_K = 0.018; // ajustado para bala de cañón educativa
+// Bola de espuma (foam ball ~70mm diámetro, como en el video del MIT)
+// m = 0.028 kg, Cd = 0.47, r = 0.035 m, A = π·r² = 0.00385 m²
+// k = 0.5 · 0.47 · 1.225 · 0.00385 / 0.028 = 0.0396 m⁻¹
+export const BALL_MASS_KG = 0.028;    // 28 g — bola de espuma realista
+export const DRAG_K       = 0.0396;   // coef. cuadrático m⁻¹
 
 /**
  * Ángulo θ que apunta al mono en reposo.
- * Con drag, la trayectoria real se curva más, pero el experimento
- * funciona igualmente porque ambos caen con la misma g.
+ * Con drag la trayectoria real se curva más, pero el experimento
+ * sigue funcionando porque ambos caen con la misma g.
  * El θ analítico (sin drag) es suficiente para el demo.
  */
 export function computeTheta(h1, monoY, d, ropeLen = 0) {
@@ -22,16 +19,20 @@ export function computeTheta(h1, monoY, d, ropeLen = 0) {
 }
 
 /**
- * Posición del proyectil integrando RK4 con resistencia del aire.
- * Para t pequeños (< 2s) y velocidades moderadas es más preciso que Euler.
- * Devuelve { x, y, vx, vy }
+ * Posición del proyectil.
+ * useDrag=false → solución analítica exacta (modo ideal, siempre impacta).
+ * useDrag=true  → integración RK4 con resistencia cuadrática del aire.
+ *   Con drag, el impacto sigue ocurriendo porque AMBOS caen con la misma g;
+ *   la trayectoria real se curva pero el encuentro se garantiza geométricamente
+ *   solo en ausencia de drag. Con drag real puede haber leve error — se muestra
+ *   en el HUD como demostración educativa.
  */
 export function projectilePos(v0, theta, h1, t, useDrag = false) {
   const vx0 = v0 * Math.cos(theta);
   const vy0 = v0 * Math.sin(theta);
 
   if (!useDrag || DRAG_K === 0) {
-    // Solución analítica exacta (sin drag)
+    // Solución analítica exacta
     return {
       x:  vx0 * t,
       y:  h1 + vy0 * t - 0.5 * G * t * t,
@@ -41,7 +42,7 @@ export function projectilePos(v0, theta, h1, t, useDrag = false) {
   }
 
   // RK4 numérico con drag cuadrático
-  const dt = 0.001; // paso de integración fino
+  const dt    = 0.001;
   const steps = Math.round(t / dt);
   let x = 0, y = h1, vx = vx0, vy = vy0;
 
@@ -53,9 +54,9 @@ export function projectilePos(v0, theta, h1, t, useDrag = false) {
 
   for (let i = 0; i < steps; i++) {
     const k1 = accel(vx, vy);
-    const k2 = accel(vx + k1.ax * dt * 0.5, vy + k1.ay * dt * 0.5);
-    const k3 = accel(vx + k2.ax * dt * 0.5, vy + k2.ay * dt * 0.5);
-    const k4 = accel(vx + k3.ax * dt, vy + k3.ay * dt);
+    const k2 = accel(vx + k1.ax*dt*0.5, vy + k1.ay*dt*0.5);
+    const k3 = accel(vx + k2.ax*dt*0.5, vy + k2.ay*dt*0.5);
+    const k4 = accel(vx + k3.ax*dt,     vy + k3.ay*dt);
     vx += (k1.ax + 2*k2.ax + 2*k3.ax + k4.ax) * dt / 6;
     vy += (k1.ay + 2*k2.ay + 2*k3.ay + k4.ay) * dt / 6;
     x  += vx * dt;
@@ -66,12 +67,12 @@ export function projectilePos(v0, theta, h1, t, useDrag = false) {
 
 /**
  * Mono: caída libre exacta desde monoRestY.
- * Añadimos pequeña oscilación de péndulo en los primeros frames
- * para que la suelta se vea más natural.
+ * La caída es SIEMPRE libre (sin drag en el mono) para mantener
+ * la demostración del principio: ambos aceleran igual con g.
  */
 export function monkeyPos(d, monoRestY, t, ropeLen = 0) {
   return {
-    x: d - ropeLen,   // mono cuelga a ropeLen del ancla en x=d
+    x: d - ropeLen,
     y: monoRestY - 0.5 * G * t * t,
   };
 }
@@ -86,9 +87,9 @@ export function trajectoryY(x, v0, theta, h1) {
   return h1 + x * Math.tan(theta) - (G / (2 * v0 * v0 * cosT * cosT)) * x * x;
 }
 
-export function impactError(v0, theta, h1, monoRestY, d, ropeLen = 0) {
+export function impactError(v0, theta, h1, monoRestY, d, ropeLen = 0, useDrag = false) {
   const t  = impactTime(v0, theta, d, ropeLen);
-  const py = projectilePos(v0, theta, h1, t).y;
+  const py = projectilePos(v0, theta, h1, t, useDrag).y;
   const my = monkeyPos(d, monoRestY, t, ropeLen).y;
   return Math.abs(py - my) / Math.max(Math.abs(my), 0.001) * 100;
 }

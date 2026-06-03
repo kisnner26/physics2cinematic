@@ -1319,6 +1319,10 @@ export function initRealistic() {
   });
 
   initialized = true;
+
+  // Exponer al modo visual
+  window.__threeRenderer = renderer;
+  window.__threeScene    = scene;
 }
 
 export function resetTrail() {
@@ -1399,4 +1403,49 @@ export function renderRealistic(proj, mono, dropped) {
   }
 
   renderer.render(scene, activeCamObj);
+}
+
+// ── UPDATE SCENE OBJECTS (sin render — para el modo visual) ───────────────────
+export function updateSceneObjects(proj, mono, dropped) {
+  if (!initialized) return;
+
+  syncPlatforms();
+  updateCannonPose();
+
+  const monoRestY  = state.h2_anchorY - state.ropeLen;
+  const monoWorldY = (state.running || state.t > 0) ? mono.y : monoRestY;
+  updateMonkeySystem(monoWorldY, dropped);
+
+  tickMuzzleFlash();
+  updateToneMapping();
+
+  const muzzleLocal = new THREE.Vector3(BARREL_LEN, 0, 0);
+  pivotGroup.localToWorld(muzzleLocal);
+  muzzleFlashL.position.copy(muzzleLocal);
+
+  if (state.running || state.t > 0) {
+    const bPos = w2t(proj.x, proj.y);
+    bulletMesh.position.copy(bPos);
+    bulletMesh.visible = !state.impacted;
+    bulletLight.position.copy(bPos);
+    bulletLight.intensity = state.impacted ? 0 : 3.5;
+    bulletMesh.rotation.x += 0.18;
+    bulletMesh.rotation.y += 0.12;
+
+    const halo = scene.getObjectByName('bulletHalo');
+    if (halo) {
+      halo.position.copy(bPos);
+      halo.material.opacity = state.impacted ? 0 : 0.55;
+    }
+
+    updateTrail(bPos);
+    updateParticles();
+    updateFragments();
+
+    if (state.impacted && !particleSpawned) {
+      spawnParticles(bPos);
+      particleSpawned = true;
+      if (impactFlashLight) impactFlashLight.position.copy(bPos);
+    }
+  }
 }
