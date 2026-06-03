@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://physicsproyectil.netlify.app"><strong>🔴 PRUÉBALO AQUÍ — physicsproyectil.netlify.app</strong></a>
+  <a href="https://physicsproyectil.netlify.app"><strong>🔴 DEMO EN VIVO — physicsproyectil.netlify.app</strong></a>
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/GSAP-3.12-green?style=flat-square"/>
   <img src="https://img.shields.io/badge/Web_Audio_API-procedural-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/Netlify-deployed-00C7B7?style=flat-square&logo=netlify"/>
-  <img src="https://img.shields.io/badge/UAM-Física_Aplicada_2026-8B0000?style=flat-square"/>
+  <img src="https://img.shields.io/badge/UAM-Física_II_2026-8B0000?style=flat-square"/>
 </p>
 
 ---
@@ -42,7 +42,7 @@ x_m(t) = d − ℓ               y_m(t) = h₂ − ½gt²
 ### Proyectil impactando al mono
 
 <p align="center">
-  <img src="https://www.image2url.com/r2/default/gifs/1780461147222-1f366419-12da-4778-a168-c57f4c1b4c09.gif" alt="Impacto" width="100%"/>
+  <img src="https://drive.google.com/uc?export=view&id=1b6WK-ImDdoQOG_BMvQjccTCohkn8e6GU" alt="Impacto" width="100%"/>
 </p>
 
 ---
