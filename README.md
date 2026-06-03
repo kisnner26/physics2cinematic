@@ -42,7 +42,7 @@ x_m(t) = d − ℓ               y_m(t) = h₂ − ½gt²
 ### Proyectil impactando al mono
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1b6WK-ImDdoQOG_BMvQjccTCohkn8e6GU" alt="Impacto" width="100%"/>
+  <img src="https://www.image2url.com/r2/default/gifs/1780461147222-1f366419-12da-4778-a168-c57f4c1b4c09.gif" alt="Impacto" width="100%"/>
 </p>
 
 ---
