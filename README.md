@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/GSAP-3.12-green?style=flat-square"/>
   <img src="https://img.shields.io/badge/Web_Audio_API-procedural-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/Netlify-deployed-00C7B7?style=flat-square&logo=netlify"/>
-  <img src="https://img.shields.io/badge/UAM-Física_II_2026-8B0000?style=flat-square"/>
+  <img src="https://img.shields.io/badge/UAM-Física_Aplicada_2026-8B0000?style=flat-square"/>
 </p>
 
 ---
