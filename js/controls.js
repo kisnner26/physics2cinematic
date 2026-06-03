@@ -6,7 +6,6 @@ import { animateModeSwitch, animateFireButton } from './animations.js';
 
 const PLATFORM_TOP_H = 0.08;
 
-// Escenarios disponibles
 const SCENARIOS = [
   { id: 'lab',    label: 'LABORATORIO', icon: '⬡', color: '#1a3a6e' },
   { id: 'desert', label: 'DESIERTO',    icon: '◇', color: '#c85010' },
@@ -15,7 +14,7 @@ const SCENARIOS = [
 ];
 let currentScenario = 'lab';
 
-export function initControls(onFire, onReset, onModeSwitch, onSliderChange, onCamChange, onScenarioChange) {
+export function initControls(onFire, onReset, onModeSwitch, onSliderChange, onCamChange, onScenarioChange, onDragToggle) {
   wireSlider('slider-v0',   'val-v0',   v => setState({ v0: v }),      1, onSliderChange);
   wireSlider('slider-h1',   'val-h1',   v => setState({ h1: v }),      1, onSliderChange);
   wireSlider('slider-h2',   'val-h2',   v => setState({ h2: v }),      1, onSliderChange);
@@ -29,6 +28,21 @@ export function initControls(onFire, onReset, onModeSwitch, onSliderChange, onCa
     onFire();
   });
   document.getElementById('btn-reset').addEventListener('click', onReset);
+
+  // ★ Toggle de resistencia del aire
+  const dragToggle = document.getElementById('toggle-drag');
+  if (dragToggle) {
+    dragToggle.addEventListener('change', () => {
+      const enabled = dragToggle.checked;
+      // Actualizar label OFF/ON junto al switch
+      const stateLabel = document.getElementById('drag-state-label');
+      if (stateLabel) {
+        stateLabel.textContent = enabled ? 'ON' : 'OFF';
+        stateLabel.classList.toggle('is-on', enabled);
+      }
+      if (onDragToggle) onDragToggle(enabled);
+    });
+  }
 
   // Mode nav
   document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -69,10 +83,8 @@ export function initControls(onFire, onReset, onModeSwitch, onSliderChange, onCa
     });
   });
 
-  // Scenario nav
   buildScenarioNav(onScenarioChange);
 
-  // Back button
   document.getElementById('btn-back')?.addEventListener('click', () => {
     document.getElementById('app').classList.add('hidden');
     document.getElementById('landing').style.display = 'flex';
@@ -99,8 +111,6 @@ function buildScenarioNav(onScenarioChange) {
     btn.addEventListener('click', () => {
       if (sc.id === currentScenario) return;
       currentScenario = sc.id;
-
-      // Animar salida del canvas
       gsap.to('#scene-realistic canvas', {
         opacity: 0, duration: 0.22, ease: 'power2.in',
         onComplete: () => {
@@ -108,8 +118,6 @@ function buildScenarioNav(onScenarioChange) {
           gsap.to('#scene-realistic canvas', { opacity: 1, duration: 0.45, ease: 'power2.out' });
         }
       });
-
-      // Actualizar activo con pequeña animación GSAP
       document.querySelectorAll('.scenario-btn').forEach(b => {
         b.classList.remove('active');
         gsap.to(b, { x: 0, duration: 0.2, ease: 'power2.out' });
@@ -121,7 +129,6 @@ function buildScenarioNav(onScenarioChange) {
     nav.appendChild(btn);
   });
 
-  // Animación de entrada: solo transform, opacity parte de 1
   gsap.fromTo('.scenario-btn',
     { x: 18, opacity: 0 },
     { x: 0,  opacity: 1, duration: 0.45, ease: 'expo.out', stagger: 0.08, delay: 0.3 }

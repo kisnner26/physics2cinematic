@@ -2,7 +2,7 @@
 // Estética: fondo pizarrón verde oscuro, trazos de tiza imperfectos, letra Caveat
 
 import { state } from './state.js';
-import { projectilePos, monkeyPos, G } from './physics.js';
+import { projectilePos, monkeyPos, G, DRAG_K } from './physics.js';
 
 let canvas, ctx, W, H;
 let initialized2 = false;
@@ -419,6 +419,8 @@ export function renderPhysics(proj, mono) {
     { text: `θ = ${(state.theta*180/Math.PI).toFixed(2)}°`, color: CY, size: 13 },
     { text: `v₀ = ${state.v0.toFixed(1)} m/s`, color: CW, size: 12 },
     { text: `g = 9.81 m/s²`, color: CW, size: 12 },
+    { text: `m = 28 g (espuma)`, color: CW, size: 11 },
+    { text: state.useDrag ? `drag: k=${DRAG_K.toFixed(4)} m⁻¹` : `drag: OFF (ideal)`, color: state.useDrag ? '#d47a6a' : CGREEN, size: 11 },
   ];
   if (state.impactT > 0) {
     formulas.push({ text: `t* = ${state.impactT.toFixed(3)} s`, color: CR, size: 13 });
@@ -428,6 +430,48 @@ export function renderPhysics(proj, mono) {
     if (f.text) chalkFormula(f.text, fx - 160, fy, f.color, f.size, 0.8);
     fy += (f.size || 12) + 5;
   });
+
+  // ── PANEL EXPLICATIVO "¿Por qué siempre impacta?" (esquina inferior izquierda) ─
+  const panelX = m.x;
+  const panelY = H - m.b - 10;
+  const panelLines = [
+    { text: '¿Por qué siempre impacta?', color: CW,    size: 13, bold: true },
+    { text: '• Caída proyectil: ½gt²',   color: CY,    size: 11 },
+    { text: '• Caída del mono:  ½gt²',   color: CB,    size: 11 },
+    { text: '→ Ambos caen igual con g',  color: CGREEN, size: 12 },
+  ];
+  // Solo mostrar si hay espacio
+  if (H > 350) {
+    let py = panelY - panelLines.length * 17 - 4;
+    // Fondo translúcido
+    ctx.save();
+    ctx.fillStyle = BOARD2;
+    ctx.globalAlpha = 0.72;
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(panelX - 4, py - 8, 230, panelLines.length * 17 + 14, 4);
+    } else {
+      ctx.rect(panelX - 4, py - 8, 230, panelLines.length * 17 + 14);
+    }
+    ctx.fill();
+    ctx.restore();
+    panelLines.forEach(l => {
+      chalkFormula(l.text, panelX + 2, py, l.color, l.size, 0.88);
+      py += 17;
+    });
+  }
+
+  // ── CAÍDA COMPARATIVA en tiempo real (mientras vuela) ──────────────────────
+  if (state.t > 0.02 && (state.running || state.impacted)) {
+    const fall = 0.5 * 9.81 * state.t * state.t;
+    const fallStr = `↓ ½gt² = ${fall.toFixed(3)} m`;
+    // Proyectil
+    const projPt2 = toScreen(proj.x, proj.y);
+    chalkText(fallStr, projPt2.sx + 12, projPt2.sy - 14, CY, 11, 'left', 0.75);
+    // Mono
+    const monoFallPt = toScreen(state.d - state.ropeLen, mono.y);
+    chalkText(fallStr, monoFallPt.sx + 14, monoFallPt.sy + 14, CB, 11, 'left', 0.75);
+  }
 
   // ── t ACTUAL ─────────────────────────────────────────────────────────────────
   if (state.t > 0) {
