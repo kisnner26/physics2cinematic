@@ -55,7 +55,10 @@ function checkCollision(prevP, nextP, mono) {
 
 // ── Estado global de animación ────────────────────────────────────────────
 let impactPhase = false;
-let accumulator = 0;          // acumulador de tiempo para fixed-step
+let paused      = false;
+let accumulator = 0;
+// Snapshot del estado al pausar
+let pauseSnapshot = null;          // acumulador de tiempo para fixed-step
 const FIXED_DT  = 1 / 240;   // física a 240 Hz internamente
 
 // ── INIT ──────────────────────────────────────────────────────────────────
@@ -76,11 +79,32 @@ function initApp() {
   initPhysics();
   initControls(onFire, onReset, onModeSwitch, onSliderChange, onCamChange, onScenarioChange);
   initMuteButton();
+  initPauseButton();
   animateAppIn();
   syncAll();
   state.h2_anchorY = state.h2 + PLATFORM_TOP_H;
   renderStatic();
   startIdleLoop();
+}
+
+function initPauseButton() {
+  const btn = document.getElementById('btn-pause');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    if (!state.running && !impactPhase) return; // nada que pausar
+    paused = !paused;
+    btn.textContent = paused ? 'REANUDAR' : 'PAUSA';
+    btn.classList.toggle('btn-pause--active', paused);
+    if (paused) {
+      // Guardar snapshot para reanudar
+      pauseSnapshot = { t: state.t, accumulator };
+      cancelAnimationFrame(rafId);
+    } else {
+      // Reanudar: relanzar el loop correcto
+      if (state.running) resumeFireLoop();
+      else if (impactPhase) resumePostLoop();
+    }
+  });
 }
 
 function syncAll() {
@@ -147,8 +171,8 @@ function onFire() {
   let lastTime = null;
 
   function loop(ts) {
+    if (paused) return;                          // pausado — no avanzar
     if (!lastTime) lastTime = ts;
-    // Frame delta clampeado: nunca más de 50ms (tab inactivo, etc.)
     const frameDelta = Math.min((ts - lastTime) / 1000, 0.050);
     lastTime = ts;
 
@@ -274,11 +298,75 @@ function triggerImpact(proj, mono, hitT, monoRestY) {
   setTimeout(() => { rafId = requestAnimationFrame(postLoop); }, 50);
 }
 
+// ── REANUDAR TRAS PAUSA ──────────────────────────────────────────────────────
+function resumeFireLoop() {
+  // Relanzar el RAF — el loop interno ya tiene guard de paused
+  let lastTime = null;
+  function loop(ts) {
+    if (paused) return;
+    if (!lastTime) lastTime = ts;
+    const frameDelta = Math.min((ts - lastTime) / 1000, 0.050);
+    lastTime = ts;
+    accumulator += frameDelta;
+    const monoRestY = state.h2_anchorY - state.ropeLen;
+    let prevP = projectilePos(state.v0, state.theta, state.h1, state.t);
+    let hitP = null, hitM = null, hitT = 0;
+    let steps = 0;
+    while (accumulator >= FIXED_DT && steps < 12 && !hitP) {
+      steps++;
+      accumulator -= FIXED_DT;
+      const nextT = state.t + FIXED_DT;
+      const nextP = projectilePos(state.v0, state.theta, state.h1, nextT);
+      const monoT = monkeyPos(state.d, monoRestY, nextT, state.ropeLen);
+      const frac  = checkCollision(prevP, nextP, monoT);
+      if (frac !== Infinity) {
+        const exactT = state.t + frac * FIXED_DT;
+        hitP = projectilePos(state.v0, state.theta, state.h1, exactT);
+        hitM = monkeyPos(state.d, monoRestY, exactT, state.ropeLen);
+        hitT = exactT;
+        setState({ t: exactT, impactT: exactT });
+        accumulator = 0;
+        break;
+      }
+      prevP = nextP;
+      setState({ t: nextT });
+      if (nextP.y < -3 || nextP.x > state.d * 1.9) {
+        setState({ running: false });
+        stopFlyingSound();
+        startIdleLoop();
+        return;
+      }
+    }
+    const proj = projectilePos(state.v0, state.theta, state.h1, state.t);
+    const mono = monkeyPos(state.d, monoRestY, state.t, state.ropeLen);
+    updateHUD(state.t, proj, mono);
+    if (hitP) {
+      setState({ impacted: true, running: false });
+      stopFlyingSound();
+      triggerImpact(hitP, hitM, hitT, monoRestY);
+      return;
+    }
+    renderRealistic(proj, mono, true);
+    renderPhysics(proj, mono);
+    rafId = requestAnimationFrame(loop);
+  }
+  rafId = requestAnimationFrame(loop);
+}
+
+function resumePostLoop() {
+  // postLoop se relanza automáticamente — solo necesitamos quitar la pausa
+  // El postLoop fue cancelado, así que lo relanzamos simple
+  startIdleLoop();
+}
+
 // ── RESET ─────────────────────────────────────────────────────────────────
 function onReset() {
   cancelAnimationFrame(rafId); stopFlyingSound();
   resetTrail(); resetTrail2D();
-  impactPhase = false; accumulator = 0;
+  paused = false; accumulator = 0;
+  impactPhase = false;
+  const pauseBtn = document.getElementById('btn-pause');
+  if (pauseBtn) { pauseBtn.textContent = 'PAUSA'; pauseBtn.classList.remove('btn-pause--active'); }
   setState({ running: false, t: 0, impacted: false });
   document.getElementById('result-group').classList.remove('visible');
   soundReset(); syncAll(); renderStatic(); startIdleLoop();

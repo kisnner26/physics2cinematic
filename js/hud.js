@@ -1,12 +1,21 @@
 // hud.js
 
 export function updateHUD(t, proj, mono) {
-  const elT    = document.getElementById('hud-t');
-  const elVyP  = document.getElementById('hud-vy-proj');
-  const elVyM  = document.getElementById('hud-vy-mono');
-  if (elT)   elT.textContent   = t.toFixed(3) + ' s';
-  if (elVyP) elVyP.textContent = proj.vy.toFixed(3) + ' m/s';
-  if (elVyM) elVyM.textContent = (-9.81 * t).toFixed(3) + ' m/s';
+  const elT      = document.getElementById('hud-t');
+  const elVyP    = document.getElementById('hud-vy-proj');
+  const elVyM    = document.getElementById('hud-vy-mono');
+  const elProjX  = document.getElementById('hud-proj-x');
+  const elProjY  = document.getElementById('hud-proj-y');
+  const elMonoX  = document.getElementById('hud-mono-x');
+  const elMonoY  = document.getElementById('hud-mono-y');
+
+  if (elT)     elT.textContent     = t.toFixed(3) + ' s';
+  if (elVyP)   elVyP.textContent   = proj.vy.toFixed(3) + ' m/s';
+  if (elVyM)   elVyM.textContent   = (-9.81 * t).toFixed(3) + ' m/s';
+  if (elProjX) elProjX.textContent = proj.x.toFixed(3) + ' m';
+  if (elProjY) elProjY.textContent = proj.y.toFixed(3) + ' m';
+  if (elMonoX) elMonoX.textContent = mono.x.toFixed(3) + ' m';
+  if (elMonoY) elMonoY.textContent = mono.y.toFixed(3) + ' m';
 }
 
 export function showImpact(show) {

@@ -131,3 +131,30 @@ input[type="range"]::-moz-range-thumb {
 .res-key { color: var(--ink-3); font-style: italic; font-family: var(--font-serif); }
 .res-val { color: var(--blue-mid); font-weight: 700; }
 .res-unit { color: var(--ink-4); font-size: 9px; }
+
+/* ── BOTÓN PAUSA ─────────────────────────────────────────────────────────── */
+.btn-pause {
+  padding: 9px 18px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  border: 1px solid var(--ink-5);
+  border-radius: 2px;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.btn-pause:hover {
+  border-color: var(--blue-mid);
+  color: var(--blue-mid);
+}
+.btn-pause--active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--paper);
+}
+.btn-pause--active:hover {
+  background: var(--blue-mid);
+  border-color: var(--blue-mid);
+  color: var(--paper);
+}
