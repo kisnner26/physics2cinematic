@@ -79,3 +79,17 @@
   right: auto !important;
   left: 16px !important;
 }
+
+/* ── HUD sección labels ─────────────────────────────────────────────────── */
+.hud-section-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: rgba(26, 58, 110, 0.6);
+  margin-top: 5px;
+  margin-bottom: 1px;
+  padding-left: 10px;
+}
+.hud-section-label:first-child {
+  margin-top: 0;
+}

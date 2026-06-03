@@ -122,9 +122,16 @@
 
         <!-- HUD flotante -->
         <div class="hud-panel" id="hud-panel">
+          <div class="hud-section-label">TIEMPO</div>
           <div class="hud-row"><span class="hud-key">t</span><span class="hud-val" id="hud-t">0.000 s</span></div>
-          <div class="hud-row"><span class="hud-key">Vy proj</span><span class="hud-val" id="hud-vy-proj">0.000 m/s</span></div>
-          <div class="hud-row"><span class="hud-key">Vy mono</span><span class="hud-val" id="hud-vy-mono">0.000 m/s</span></div>
+          <div class="hud-section-label">PROYECTIL</div>
+          <div class="hud-row"><span class="hud-key">x</span><span class="hud-val" id="hud-proj-x">0.000 m</span></div>
+          <div class="hud-row"><span class="hud-key">y</span><span class="hud-val" id="hud-proj-y">0.000 m</span></div>
+          <div class="hud-row"><span class="hud-key">Vy</span><span class="hud-val" id="hud-vy-proj">0.000 m/s</span></div>
+          <div class="hud-section-label">MONO</div>
+          <div class="hud-row"><span class="hud-key">x</span><span class="hud-val" id="hud-mono-x">0.000 m</span></div>
+          <div class="hud-row"><span class="hud-key">y</span><span class="hud-val" id="hud-mono-y">0.000 m</span></div>
+          <div class="hud-row"><span class="hud-key">Vy</span><span class="hud-val" id="hud-vy-mono">0.000 m/s</span></div>
         </div>
 
         <!-- Impact banner -->
@@ -181,6 +188,7 @@
 
       <div class="actions-col">
         <button class="btn-fire" id="btn-fire">DISPARAR</button>
+        <button class="btn-pause" id="btn-pause">PAUSA</button>
         <button class="btn-reset" id="btn-reset">RESET</button>
       </div>
 
