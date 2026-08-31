@@ -1,28 +1,34 @@
 # physics2cinematic
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1jNH-e0XhGg67H1zNPxbxlTiP-Q7oohog" alt="physics2cinematic banner" width="100%"/>
+  <img src="docs/img/banner.jpg" alt="physics2cinematic banner" width="100%"/>
 </p>
 
 <p align="center">
-  <a href="https://physicsmonkeyproject.netlify.app"><strong>🔴 Click aquí para probar — https://physicsmonkeyproject.netlify.app</strong></a>
+  <a href="https://physicsmonkeyproject.netlify.app"><strong>🔴 Live demo — physicsmonkeyproject.netlify.app</strong></a>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Three.js-r128-black?style=flat-square&logo=three.js"/>
   <img src="https://img.shields.io/badge/GSAP-3.12-green?style=flat-square"/>
   <img src="https://img.shields.io/badge/Web_Audio_API-procedural-blue?style=flat-square"/>
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square"/>
   <img src="https://img.shields.io/badge/Netlify-deployed-00C7B7?style=flat-square&logo=netlify"/>
-  <img src="https://img.shields.io/badge/UAM-Física_Aplicada_2026-8B0000?style=flat-square"/>
+</p>
+
+<p align="center">
+  <b>English</b> · <a href="#español">Español</a>
 </p>
 
 ---
 
-> Simulación interactiva 3D del experimento **Mono y Proyectil** — cinemática clásica visualizada con motor de renderizado en tiempo real, 4 escenarios, 5 cámaras y audio procedural sintetizado desde cero.
+> An interactive 3D simulation of the **monkey and hunter** experiment — classical kinematics rendered in real time, with 4 environments, 5 cameras and every sound synthesized from scratch.
 
-## El experimento
+No install, no build step. Open the link and it runs, phone included.
 
-Si el cañón apunta directamente al mono en el momento del disparo, la bala y el mono caen con la misma aceleración `g = 9.81 m/s²` y siempre se encuentran — sin importar `v₀` o `d`.
+## The experiment
+
+If the cannon is aimed directly at the monkey at the moment of the shot, the projectile and the monkey fall with the same acceleration `g = 9.81 m/s²` and they always meet — regardless of `v₀` or `d`.
 
 ```
 x_p(t) = v₀cosθ · t          y_p(t) = h₁ + v₀sinθ·t − ½gt²
@@ -31,63 +37,158 @@ x_m(t) = d − ℓ               y_m(t) = h₂ − ½gt²
 
 ---
 
-## Vista general
+## Overview
 
-### Bienvenida
+### Welcome screen
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1QOV32o3atGY2Ua56rSoShIw2weFbsfuw" alt="Bienvenida" width="100%"/>
+  <img src="docs/img/welcome.jpg" alt="Welcome screen" width="100%"/>
 </p>
 
-### Proyectil impactando al mono
+### Projectile hitting the monkey
 
 <p align="center">
-  <img src="https://www.image2url.com/r2/default/gifs/1780461147222-1f366419-12da-4778-a168-c57f4c1b4c09.gif" alt="Impacto" width="100%"/>
+  <img src="docs/img/impact.gif" alt="Impact" width="100%"/>
 </p>
 
 ---
 
-## Escenarios
+## Environments
 
 <table>
   <tr>
-    <td align="center"><b>Laboratorio</b></td>
-    <td align="center"><b>Desierto</b></td>
+    <td align="center"><b>Laboratory</b></td>
+    <td align="center"><b>Desert</b></td>
   </tr>
   <tr>
-    <td><img src="https://drive.google.com/uc?export=view&id=19nYqR7nsUA73LKxI5zgM7K2lO7mbVOhL" width="100%"/></td>
-    <td><img src="https://drive.google.com/uc?export=view&id=1U5-YgU5_2AI9f4BuOAgbCYBo2fMb5mpN" width="100%"/></td>
+    <td><img src="docs/img/scene-lab.jpg" width="100%"/></td>
+    <td><img src="docs/img/scene-desert.jpg" width="100%"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Noche</b></td>
-    <td align="center"><b>Bosque</b></td>
+    <td align="center"><b>Night</b></td>
+    <td align="center"><b>Forest</b></td>
   </tr>
   <tr>
-    <td><img src="https://drive.google.com/uc?export=view&id=1x-t1oarTP8HdqfSSTJG-aaJQi1Ug886b" width="100%"/></td>
-    <td><img src="https://drive.google.com/uc?export=view&id=13XrV0TlSsIlB5DTTxXKJy1A7y_5mTp0Q" width="100%"/></td>
+    <td><img src="docs/img/scene-night.jpg" width="100%"/></td>
+    <td><img src="docs/img/scene-forest.jpg" width="100%"/></td>
   </tr>
 </table>
 
 ---
 
-## Modo Pizarrón
+## Blackboard mode
 
 <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1ZOHHvH5S9-pKm4SbmJIL_ILEWMRyG4Fo" alt="Modo Pizarrón" width="100%"/>
+  <img src="docs/img/blackboard.jpg" alt="Blackboard mode" width="100%"/>
 </p>
+
+The same run rendered as chalk-style 2D, with the kinematic equations and live velocity vectors — so the visual and the math sit side by side.
 
 ---
 
-## Perspectivas de cámara
+## Camera perspectives
 
 <table>
   <tr>
-    <td><img src="https://drive.google.com/uc?export=view&id=1ebul6oPBOzLNP6pGDdGB8iiQMdKHz-BC" width="100%"/></td>
-    <td><img src="https://drive.google.com/uc?export=view&id=1UGezrMfEaeoa9cp0Qx8wYsOBx48gssvy" width="100%"/></td>
+    <td><img src="docs/img/camera-orbit.jpg" width="100%"/></td>
+    <td><img src="docs/img/camera-bullet.jpg" width="100%"/></td>
   </tr>
 </table>
 
 ---
+
+## Features
+
+**Physics**
+- **Swept-sphere CCD** collision detection — no tunneling at any velocity
+- **240 Hz** physics loop with a fixed-timestep accumulator, decoupled from the render framerate
+- Monkey position at `x = d − ℓ` — consistent between the physics model and the Three.js scene
+
+**Realistic mode**
+- Full PBR: `ACESFilmicToneMapping`, `PCFSoftShadowMap` 2048², `physicallyCorrectLights`
+- Runtime IBL via `PMREMGenerator` — metal reflections change per environment
+- **5 cameras**: free orbit · side view · cannon POV · bullet cam · monkey POV
+- Hand-rolled orbit controller: drag to orbit, right-click to pan, scroll to zoom, touch pinch, inertia
+- Vertex-colored trail (blue → black fade), 14 3D fragments with bounce physics, additive particles
+
+**Environments**
+
+| Environment | Description |
+|-------------|-------------|
+| **Laboratory** | Dark industrial, warm key light, partially mirrored floor |
+| **Desert** | Dunes on the horizon, low orange-red sun, warm fog |
+| **Night** | 800 stars as `Points`, violet neon lights, dense fog |
+| **Forest** | 8 trees, filtered green-yellow sunlight, organic ground |
+
+**Blackboard mode**
+2D canvas with a chalk aesthetic: a double-pass `chalkLine()` with blur shadow, formulas in the `Caveat` typeface, real-time velocity vectors, and the monkey drawn as a chalk figure.
+
+**Procedural audio (pure Web Audio API — zero audio assets shipped)**
+
+| Event | Synthesis |
+|-------|-----------|
+| **Shot** | 55 Hz→18 Hz sub-boom + filtered noise + >3.5 kHz crack + pressure wave + metallic ring |
+| **Flight** | FM synthesis: carrier + 220 Hz modulator, 380 Hz depth. Per-frame Doppler. |
+| **Impact** | 90 Hz→22 Hz thud + crack + 5 staggered micro-clicks + 3 metallic bounces + reverb |
+
+Master `DynamicsCompressor` + a `ConvolverNode` fed by a 1.8 s synthetic room impulse generated procedurally.
+
+---
+
+## Stack
+
+```
+Three.js r128  ·  GSAP 3.12  ·  Web Audio API  ·  Vanilla JS ESM  ·  CSS custom properties
+```
+
+## Running locally
+
+```bash
+git clone https://github.com/kisnner26/physics2cinematic.git
+cd physics2cinematic
+python3 -m http.server 8080
+```
+
+Open `http://localhost:8080` — an HTTP server is required because the project uses ES modules.
+
+## Structure
+
+```
+├── index.html
+├── css/
+│   ├── theme.css           # design tokens
+│   ├── layout.css          # header, stage, environments
+│   ├── controls.css        # sliders, buttons
+│   └── scene.css           # HUD, overlays
+└── js/
+    ├── main.js             # main loop, physics, impact
+    ├── physics.js          # kinematics + swept sphere
+    ├── realistic-scene.js  # Three.js, cameras, environments, fragments
+    ├── physics-scene.js    # 2D canvas blackboard
+    ├── audio.js            # Web Audio API synthesis
+    ├── controls.js         # sliders, modes, cameras, environments
+    ├── animations.js       # GSAP sequences
+    ├── hud.js              # real-time UI
+    └── state.js            # global state
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE). Free to use in any classroom, fork, or derivative work.
+
+---
+
+<a name="español"></a>
+
+# Español
+
+> Simulación interactiva 3D del experimento **Mono y Proyectil** — cinemática clásica visualizada con motor de renderizado en tiempo real, 4 escenarios, 5 cámaras y audio procedural sintetizado desde cero.
+
+Sin instalación y sin build: abrís el enlace y corre, incluso en el teléfono.
+
+## El experimento
+
+Si el cañón apunta directamente al mono en el momento del disparo, la bala y el mono caen con la misma aceleración `g = 9.81 m/s²` y siempre se encuentran — sin importar `v₀` o `d`.
 
 ## Características
 
@@ -98,12 +199,12 @@ x_m(t) = d − ℓ               y_m(t) = h₂ − ½gt²
 
 **Modo Realista**
 - PBR completo: `ACESFilmicToneMapping`, `PCFSoftShadowMap` 2048², `physicallyCorrectLights`
-- IBL generado en runtime con `PMREMGenerator` — reflejos del metal cambian por escenario
-- **5 cámaras**: Órbita libre · Lateral · POV Cañón · Cámara bala · POV Mono
+- IBL generado en runtime con `PMREMGenerator` — los reflejos del metal cambian por escenario
+- **5 cámaras**: órbita libre · lateral · POV cañón · cámara bala · POV mono
 - OrbitControls propio: drag = orbitar, clic derecho = pan, scroll = zoom, touch pinch, inercia
 - Trail con vertex colors (fade azul → negro), 14 fragmentos 3D con física de rebote, partículas aditivas
 
-**4 Escenarios**
+**4 escenarios**
 
 | Escenario | Descripción |
 |-----------|-------------|
@@ -115,23 +216,15 @@ x_m(t) = d − ℓ               y_m(t) = h₂ − ½gt²
 **Modo Pizarrón**
 Canvas 2D con estética de tiza: función `chalkLine()` de doble pasada con sombra blur, fórmulas en fuente `Caveat`, vectores de velocidad en tiempo real, mono dibujado como figura de pizarra.
 
-**Audio procedural (Web Audio API pura)**
+**Audio procedural (Web Audio API pura — cero assets de audio)**
 
 | Evento | Síntesis |
 |--------|----------|
-| **Disparo** | Sub-boom 55Hz→18Hz + ruido filtrado + crack >3.5kHz + onda de presión + ring metálico |
-| **Vuelo** | FM synthesis: portadora + moduladora 220Hz, profundidad 380Hz. Doppler por frame. |
-| **Impacto** | Thud 90Hz→22Hz + crack + 5 micro-clicks escalonados + 3 rebotes metálicos + reverb |
+| **Disparo** | Sub-boom 55 Hz→18 Hz + ruido filtrado + crack >3.5 kHz + onda de presión + ring metálico |
+| **Vuelo** | FM synthesis: portadora + moduladora 220 Hz, profundidad 380 Hz. Doppler por frame. |
+| **Impacto** | Thud 90 Hz→22 Hz + crack + 5 micro-clicks escalonados + 3 rebotes metálicos + reverb |
 
-`DynamicsCompressor` master + `ConvolverNode` de sala sintética de 1.8s generada proceduralmente.
-
----
-
-## Stack
-
-```
-Three.js r128  ·  GSAP 3.12  ·  Web Audio API  ·  Vanilla JS ESM  ·  CSS custom properties
-```
+`DynamicsCompressor` master + `ConvolverNode` de sala sintética de 1.8 s generada proceduralmente.
 
 ## Correr localmente
 
@@ -141,28 +234,11 @@ cd physics2cinematic
 python3 -m http.server 8080
 ```
 
-Abrir `http://localhost:8080` — requiere servidor HTTP por ES modules.
+Abrir `http://localhost:8080` — requiere servidor HTTP por los ES modules.
 
-## Estructura
+## Licencia
 
-```
-├── index.html
-├── css/
-│   ├── theme.css           # design tokens
-│   ├── layout.css          # header, stage, escenarios
-│   ├── controls.css        # sliders, botones
-│   └── scene.css           # HUD, overlays
-└── js/
-    ├── main.js             # loop principal, física, impacto
-    ├── physics.js          # cinemática + swept sphere
-    ├── realistic-scene.js  # Three.js, cámaras, escenarios, fragmentos
-    ├── physics-scene.js    # pizarrón Canvas 2D
-    ├── audio.js            # síntesis Web Audio API
-    ├── controls.js         # sliders, modos, cámaras, escenarios
-    ├── animations.js       # GSAP sequences
-    ├── hud.js              # UI en tiempo real
-    └── state.js            # estado global
-```
+MIT — ver [LICENSE](LICENSE). Libre para usar en cualquier aula, fork o trabajo derivado.
 
 ---
 
